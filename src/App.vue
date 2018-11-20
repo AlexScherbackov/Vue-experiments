@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <h1>{{message}}</h1>
-     <p v-bind:title="title">
-      Наведи на меня курсор на пару секунд,
-      чтобы увидеть динамически связанное значение title!
-    </p>
+    <ul v-if="todoShow">
+      <li v-for="todo in todos">{{todo.text}}</li>
+    </ul>
   </div>
 </template>
 
@@ -13,8 +11,13 @@ export default {
   name: 'app',
   data () {
     return {
-       message: 'Привет, Vue!!',
-       title: 'Вы загрузили эту страницу: ' + new Date().toLocaleString()
+       todoShow: true,
+       todos: [
+        { text: 'Изучить JavaScript' },
+        { text: 'Изучить Vue' },
+        { text: 'Создать что-нибудь классное' }
+       ]
+     
     }
   }
 }
