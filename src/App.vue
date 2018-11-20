@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <ul v-if="todoShow">
-      <li v-for="todo in todos">{{todo.text}}</li>
-    </ul>
+   <h1>{{message}}</h1>
+   <button v-on:click="reverseString">Перевернуть строку</button>
   </div>
 </template>
 
@@ -11,13 +10,12 @@ export default {
   name: 'app',
   data () {
     return {
-       todoShow: true,
-       todos: [
-        { text: 'Изучить JavaScript' },
-        { text: 'Изучить Vue' },
-        { text: 'Создать что-нибудь классное' }
-       ]
-     
+       message: "А Луна канула"   
+    }
+  },
+  methods: {
+    reverseString: function () {
+      this.message = this.message.split('').reverse().join('')
     }
   }
 }
