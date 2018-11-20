@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-   <h1>{{message}}</h1>
-   <button v-on:click="reverseString">Перевернуть строку</button>
+  <ol>
+  <!-- Создаём экземпляр компонента todo-item -->
+   <todo-item
+    v-for="todo in todos" v-bind:todo="todo" v-bind:key="todo.id"></todo-item>
+  </ol>
   </div>
 </template>
 
@@ -10,14 +13,14 @@ export default {
   name: 'app',
   data () {
     return {
-       message: "А Луна канула"   
+      todos: [
+      { id: 0, text: 'Изучить JavaScript' },
+      { id: 1, text: 'Изучить Vue' },
+      { id: 2, text: 'Создать что-нибудь классное' }
+      ]  
     }
   },
-  methods: {
-    reverseString: function () {
-      this.message = this.message.split('').reverse().join('')
-    }
-  }
+  
 }
 </script>
 
