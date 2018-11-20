@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <h1>{{message}}</h1>
+     <p v-bind:title="title">
+      Наведи на меня курсор на пару секунд,
+      чтобы увидеть динамически связанное значение title!
+    </p>
   </div>
 </template>
 
@@ -9,7 +13,8 @@ export default {
   name: 'app',
   data () {
     return {
-       message: 'Привет, Vue!!'
+       message: 'Привет, Vue!!',
+       title: 'Вы загрузили эту страницу: ' + new Date().toLocaleString()
     }
   }
 }
