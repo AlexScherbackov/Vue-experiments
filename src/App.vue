@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-   <p>Двойные фигурные скобки: {{ rawHtml }}</p>
-<p>Директива v-html: <span v-html="rawHtml"></span></p>
+   <p>Изначальное сообщение: "{{ message }}"</p>
+  <p>Сообщение задом наперёд: "{{ reversedMessage }}"</p>
   </div>
 </template>
 
@@ -10,10 +10,16 @@ export default {
   name: 'app',
   data () {
     return {
-     rawHtml: "<span style='color:red'>Text is red</span>"  
+     message: "Helli Dolly"  
     }
   },
-  
+  computed: {
+    // геттер вычисляемого значения
+    reversedMessage: function () {
+      // `this` указывает на экземпляр vm
+      return this.message.split('').reverse().join('')
+    }
+  }
 }
 </script>
 
