@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-   <p>Изначальное сообщение: "{{ message }}"</p>
-  <p>Сообщение задом наперёд: "{{ reversedMessage }}"</p>
+    <h1>Dear {{fullName}}</h1>
+    <form v-on:submit.prevent="onSubmit">
+      <input type='text'>
+    </form>
   </div>
 </template>
 
@@ -10,14 +12,25 @@ export default {
   name: 'app',
   data () {
     return {
-     message: "Helli Dolly"  
+     firstName: "Alex",
+     lastName: "Shcherbackov" 
     }
   },
   computed: {
-    // геттер вычисляемого значения
-    reversedMessage: function () {
-      // `this` указывает на экземпляр vm
-      return this.message.split('').reverse().join('')
+    fullName: {
+      get(){
+        return `${this.firstName} ${this.lastName}`;
+      },
+      set(newValue){
+        const names = newValue.split(' ');
+        this.firstName = names[0];
+        this.lastName = names[1];
+      }
+    }
+  },
+  methods: {
+    onSubmit(e){
+      this.fullName = e.target.querySelector('input').value;
     }
   }
 }
