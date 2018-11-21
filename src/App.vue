@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h1 v-once>{{msg}}</h1>
-    <button v-on:click="reverseString">Reverse </button>
+   <p>Двойные фигурные скобки: {{ rawHtml }}</p>
+<p>Директива v-html: <span v-html="rawHtml"></span></p>
   </div>
 </template>
 
@@ -10,15 +10,10 @@ export default {
   name: 'app',
   data () {
     return {
-     msg: "Lorem ipsum"  
+     rawHtml: "<span style='color:red'>Text is red</span>"  
     }
   },
-  methods: {
-    reverseString(){
-      this.msg = this.msg.split('').reverse().join('');
-      console.log(this.msg)
-    }
-  }
+  
 }
 </script>
 
