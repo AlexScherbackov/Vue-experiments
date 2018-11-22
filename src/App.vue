@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <h1>Dear {{fullName}}</h1>
-    <form v-on:submit.prevent="onSubmit">
-      <input type='text'>
-    </form>
+    <template v-if="Math.random() > 0.5">
+  <h1>Заголовок</h1>
+  <p>Абзац 1</p>
+  <p>Абзац 2</p>
+</template>
+<div v-else>
+  А теперь — нет
+</div>
   </div>
 </template>
 
@@ -12,25 +16,7 @@ export default {
   name: 'app',
   data () {
     return {
-     firstName: "Alex",
-     lastName: "Shcherbackov" 
-    }
-  },
-  computed: {
-    fullName: {
-      get(){
-        return `${this.firstName} ${this.lastName}`;
-      },
-      set(newValue){
-        const names = newValue.split(' ');
-        this.firstName = names[0];
-        this.lastName = names[1];
-      }
-    }
-  },
-  methods: {
-    onSubmit(e){
-      this.fullName = e.target.querySelector('input').value;
+    
     }
   }
 }
