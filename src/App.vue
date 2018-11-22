@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <template v-if="Math.random() > 0.5">
-  <h1>Заголовок</h1>
-  <p>Абзац 1</p>
-  <p>Абзац 2</p>
-</template>
-<div v-else>
-  А теперь — нет
-</div>
-  </div>
+    <p>Можно итерировать как массивы</p>
+    <ul>
+      <li v-for="(item, index) of items">{{parentText}} {{item}}-index={{index}}</li>
+    </ul>
+    <p>так и свойства объектов</p>
+    <ul>
+      <li v-for="prop in user">{{prop}}</li>
+    </ul>
+  </div> 
 </template>
 
 <script>
@@ -16,7 +16,13 @@ export default {
   name: 'app',
   data () {
     return {
-    
+      parentText: 'foo',
+      items: ['text1', 'text2', 'text3'],
+      user: {
+        firstName: 'Alex',
+        lastName: 'Shcherbackov',
+        age: 27
+      }
     }
   }
 }
@@ -42,8 +48,7 @@ ul {
 }
 
 li {
-  display: inline-block;
-  margin: 0 10px;
+  margin:10px;
 }
 
 a {
