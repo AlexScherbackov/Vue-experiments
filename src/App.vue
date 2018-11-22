@@ -1,49 +1,62 @@
 <template>
   <div id="app">
-    <p>Можно итерировать как массивы</p>
-    <ul>
-      <li v-for="(item, index) of items">{{parentText}} {{item}}-index={{index}}</li>
-    </ul>
-    <button v-on:click="addItem">Добавить элемент в конец массива</button>
-    <p>   в этом случае мы добавляем элемнт в массив с помощью метода push, а он по умолчанию обёрнут в реактивность фреймворком, поэтому представление обновляется вместе с данными</p>
-   <button v-on:click="addItemBadPractice">Добавление в масси по индексу</button>
-   <p>В этом случае обновления представления не происходит т.к. добавление по индексу не реализован реактивно в фреймворке, но мы можнем удостовериться в том, что на самом деле добавление происходит нажав на первую кнопку. В общем это плохой способ и так делать не надо!</p>
-    <p>так и свойства объектов</p>
-    <ul>
-      <li v-for="(prop, key, index) in user">{{index}}. {{key}}: {{prop}}</li>
-    </ul>
+    <div id="todo-list-example">
+  <form v-on:submit.prevent="addNewTodo">
+    <label for="new-todo">Добавить задачу</label>
+    <input
+      v-model="newTodoText"
+      id="new-todo"
+      placeholder="Например, покормить кота"
+    >
+    <button>Добавить</button>
+  </form>
+  <ul>
+    <li
+      is="todo-item"
+      v-for="(todo, index) in todos"
+      v-bind:key="todo.id"
+      v-bind:title="todo.title"
+      v-on:remove="todos.splice(index, 1)"
+    ></li>
+  </ul>
+</div>
   </div> 
 </template>
 
 <script>
+  import todoItem from './components/todiItem.vue'
 export default {
+  components:{
+    todoItem
+  },
   name: 'app',
   data () {
     return {
-      parentText: 'foo',
-      items: ['text1', 'text2', 'text3'],
-      user: {
-        firstName: 'Alex',
-        lastName: 'Shcherbackov',
-        age: 27
-      }
-    }
-  },
-  methods: {
-    addItem(){
-       
-      let lastNumberPart = this.items[this.items.length - 1]
-        .split('')
-        .filter((char)=>{
-          return parseInt(char);
-        })
-        .join('');
-
-      this.items.push(`text${++lastNumberPart}`);
-    
+     newTodoText: '',
+     todos: [
+     {
+      id: 1,
+      title: 'Помыть посуду'
     },
-    addItemBadPractice(){
-      this.items[this.items.length] = "badPractice";
+    {
+      id: 2,
+      title: 'Вынести мусор'
+    },
+    {
+      id: 3,
+      title: 'Подстричь газон'
+    }
+    ],
+    nextTodoId: 4
+  }
+},
+  methods: {
+     addNewTodo: function () {
+      this.todos.push({
+        id: this.nextTodoId++,
+        title: this.newTodoText
+      })
+      this.newTodoText = ''
     }
   }
 }
