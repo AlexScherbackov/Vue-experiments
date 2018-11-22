@@ -6,7 +6,7 @@
     </ul>
     <p>так и свойства объектов</p>
     <ul>
-      <li v-for="prop in user">{{prop}}</li>
+      <li v-for="(prop, key, index) in user">{{index}}. {{key}}: {{prop}}</li>
     </ul>
   </div> 
 </template>
