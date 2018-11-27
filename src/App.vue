@@ -1,91 +1,57 @@
 <template>
   <div id="app">
-    <div id="todo-list-example">
-  <form v-on:submit.prevent="addNewTodo">
-    <label for="new-todo">Добавить задачу</label>
-    <input
-      v-model="newTodoText"
-      id="new-todo"
-      placeholder="Например, покормить кота"
-    >
-    <button>Добавить</button>
-  </form>
-  <ul>
-    <li
-      is="todo-item"
-      v-for="(todo, index) in todos"
-      v-bind:key="todo.id"
-      v-bind:title="todo.title"
-      v-on:remove="todos.splice(index, 1)"
-    ></li>
-  </ul>
-</div>
+    <button
+    v-for="tab in tabs"
+    v-bind:key="tab"
+    v-bind:class="['tab-button', { active: currentTab === tab }]"
+    v-on:click="currentTab = tab"
+  >{{ tab }}</button>
+
+  <component
+    v-bind:is="currentTabComponent"
+    class="tab"
+  ></component>
+
   </div> 
 </template>
 
 <script>
-  import todoItem from './components/todiItem.vue'
+ 
 export default {
-  components:{
-    todoItem
-  },
   name: 'app',
   data () {
     return {
-     newTodoText: '',
-     todos: [
-     {
-      id: 1,
-      title: 'Помыть посуду'
-    },
-    {
-      id: 2,
-      title: 'Вынести мусор'
-    },
-    {
-      id: 3,
-      title: 'Подстричь газон'
+      currentTab: 'Home',
+      tabs: ['Home', 'Posts', 'Archive']
     }
-    ],
-    nextTodoId: 4
-  }
-},
-  methods: {
-     addNewTodo: function () {
-      this.todos.push({
-        id: this.nextTodoId++,
-        title: this.newTodoText
-      })
-      this.newTodoText = ''
-    }
+  },
+  computed: {
+     currentTabComponent(){
+      return `tab-${this.currentTab.toLowerCase()}`
+     }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.tab-button {
+  padding: 6px 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f0f0f0;
+  margin-bottom: -1px;
+  margin-right: -1px;
 }
-
-h1, h2 {
-  font-weight: normal;
+.tab-button:hover {
+  background: #e0e0e0;
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
+.tab-button.active {
+  background: #e0e0e0;
 }
-
-li {
-  margin:10px;
-}
-
-a {
-  color: #42b983;
+.tab {
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 </style>
