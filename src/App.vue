@@ -2,35 +2,53 @@
   <div id="app">
     <button
     v-for="tab in tabs"
-    v-bind:key="tab"
-    v-bind:class="['tab-button', { active: currentTab === tab }]"
+    v-bind:key="tab.name"
+    v-bind:class="['tab-button', { active: currentTab === tab.name }]"
     v-on:click="currentTab = tab"
-  >{{ tab }}</button>
+    >{{ tab.name }}</button>
 
-  <component
-    v-bind:is="currentTabComponent"
+    <component
+    v-bind:is="currentTab.component"
     class="tab"
-  ></component>
+    ></component>
 
   </div> 
 </template>
 
 <script>
- 
+
+ var tabs = [
+ {
+  name: 'Home', 
+  component: { 
+    template: '<div>Home component</div>' 
+  }
+},
+{
+  name: 'Posts',
+  component: {
+    template: '<div>Posts component</div>'
+  }
+},
+{
+  name: 'Archive',
+  component: {
+    template: '<div>Archive component</div>',
+  }
+}
+]
+
 export default {
   name: 'app',
   data () {
     return {
-      currentTab: 'Home',
-      tabs: ['Home', 'Posts', 'Archive']
+      tabs: tabs,
+      currentTab: tabs[0]
     }
   },
-  computed: {
-     currentTabComponent(){
-      return `tab-${this.currentTab.toLowerCase()}`
-     }
-  }
+ 
 }
+
 </script>
 
 <style lang="scss">

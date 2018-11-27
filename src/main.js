@@ -2,17 +2,26 @@ import Vue from 'vue'
 import App from './App.vue'
 
 // Определяем новый компонент под именем todo-item
-Vue.component('tab-home', { 
-	template: '<div>Home component</div>' 
-})
-
-Vue.component('tab-posts', { 
-	template: '<div>Posts component</div>' 
-})
-
-Vue.component('tab-archive', { 
-	template: '<div>Archive component</div>' 
-})
+var tabs = [
+  {
+    name: 'Home', 
+    component: { 
+      template: '<div>Home component</div>' 
+    }
+  },
+  {
+    name: 'Posts',
+    component: {
+      template: '<div>Posts component</div>'
+    }
+  },
+  {
+    name: 'Archive',
+    component: {
+      template: '<div>Archive component</div>',
+    }
+  }
+]
 
 const app = new Vue({
   el: '#app',
